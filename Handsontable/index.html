@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/handsontable-pro@6.1.1/dist/handsontable.full.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable-pro@6.1.1/dist/handsontable.full.min.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <button class="btn" onclick="Create()">Add row above</button>
+    <button class="btn" onclick="Delete()">Delete row above</button>
+    <div id="example1"></div>
+
+
+    <script>
+        // const data = [
+        //     ['', 'Tesla', 'Volvo', 'Toyota', 'Ford'],
+        //     ['2019', 10, 11, 12, 13],
+        //     ['2020', 20, 11, 14, 13],
+        //     ['2021', 30, 15, 12, 13]
+        // ];
+
+        // const container = document.querySelector('#example');
+        // const hot = new Handsontable(container, {
+        //     data: data,
+        //     rowHeaders: true,
+        //     colHeaders: true,
+        //     height: 'auto',
+        //     licenseKey: 'non-commercial-and-evaluation' // for non-commercial use only
+        // });
+
+        // document.querySelector('.btn').addEventListener('click', function() {
+        //     hot.alter('insert_row', hot.getSelectedLast()[0], 1);
+        //     hot.setDataAtCell(hot.getSelectedLast()[0] - 1, 0, '');
+        //     hot.setDataAtCell(hot.getSelectedLast()[0] - 1, 1, '');
+        //     hot.setDataAtCell(hot.getSelectedLast()[0] - 1, 2, '')
+        // })
+
+        // function Create() {
+
+        //     hot.alter('insert_row', hot.getSelectedLast()[0], 1);
+        //     hot.setDataAtCell(hot.getSelectedLast()[0] - 1, 0, '');
+        //     hot.setDataAtCell(hot.getSelectedLast()[0] - 1, 1, '');
+        //     hot.setDataAtCell(hot.getSelectedLast()[0] - 1, 2, '')
+
+        // }
+
+        var example = document.getElementById('example1');
+        var hot = new Handsontable(example, {
+            data: [
+                ['John', 'Smith', 19],
+                ['Brian', 'Adams', 59],
+                ['John', 'Smith', 19],
+                ['John', 'Smith', 19],
+                ['Brian', 'Adams', 59],
+                ['John', 'Smith', 19],
+                ['John', 'Smith', 19],
+                ['Brian', 'Adams', 59],
+                ['John', 'Smith', 19],
+                ['John', 'Smith', 19],
+                ['Brian', 'Adams', 59],
+                ['John', 'Smith', 19],
+                ['John', 'Smith', 19],
+                ['Brian', 'Adams', 59]
+            ],
+            rowHeaders: true,
+            colHeaders: ['Name', 'Surname', 'Age'],
+            outsideClickDeselects: false
+        });
+
+        // document.querySelector('.btn').addEventListener('click', function() {
+        //     hot.alter('insert_row', hot.getSelectedLast()[0], 1);
+        //     hot.setDataAtCell(hot.getSelectedLast()[0] - 1, 0, '');
+        //     hot.setDataAtCell(hot.getSelectedLast()[0] - 1, 1, '');
+        //     hot.setDataAtCell(hot.getSelectedLast()[0] - 1, 2, '')
+        // })
+
+        function Create() {
+            hot.alter('insert_row');
+        }
+
+        function Delete() {
+            if (hot.getSelected() != undefined) {
+                var selection = hot.getSelected()[0];
+                if (selection != undefined) {
+                    hot.alter('remove_row', selection[0]);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+<html>
+
+<head>
+    <style>
+        .dropbtn {
+            /* background-color: green;
+            color: white;
+            padding: 14px;
+            font-size: 16px;
+            cursor: pointer; */
+            font-size: 13px;
+            padding: 10px 8px 10px 14px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            position: relative;
+        }
+        
+        .dropbtn:hover {
+            background-color: brown;
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 140px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .dropdown a:hover {
+            background-color: #ddd;
+        }
+        
+        .show {
+            display: block;
+        }
+        
+        .scrollable-menu {
+            height: auto;
+            max-height: 200px;
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>List of tutorials using Dropdown menu</h2>
+    <p>Click on the button to open the tutorial dropdown menu.</p>
+
+    <div class="dropdown">
+        <button onclick="programmingList()" class="dropbtn">Programming</button>
+        <div id="myDropdown1" class="dropdown-content scrollable-menu">
+            <a href="#java" onclick="java()">Java</a>
+            <a href="#python" onclick="python()">Python</a>
+            <a href="#c++" onclick="cpp()">C++</a>
+            <a href="#c" onclick="c()">C</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button onclick="demo()" class="dropbtn">Demo <Var></Var></button>
+        <div id="demo" class="dropdown-content scrollable-menu"></div>
+    </div>
+
+    <span id="dayOfWeek"></span>
+    <script>
+        /* methods to hide and show the dropdown content */
+        function programmingList() {
+            document.getElementById("myDropdown1").classList.toggle("show");
+        }
+
+        function demo() {
+            document.getElementById("demo").classList.toggle("show");
+        }
+
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        function getDateOfISOWeek(w, y) {
+
+            var simple = new Date(y, 0, 1 + (w - 1) * 7);
+            var dow = simple.getDay();
+            var ISOweekStart = simple;
+            if (dow <= 4)
+                ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+            else
+                ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+            return ISOweekStart;
+        }
+
+        function GetWeek() {
+            const currentYear = new Date().getFullYear();
+
+            const lastDayOfYear = new Date(currentYear, 11, 31);
+
+            var oneJan = new Date(lastDayOfYear.getFullYear(), 0, 1);
+
+            var numberOfDays = Math.floor((lastDayOfYear - oneJan) / (24 * 60 * 60 * 1000));
+
+            var result = Math.ceil((lastDayOfYear.getDay() + 1 + numberOfDays) / 7);
+
+            var numberOfDays = Math.floor((lastDayOfYear - oneJan) / (24 * 60 * 60 * 1000));
+
+            var result = Math.ceil((lastDayOfYear.getDay() + 1 + numberOfDays) / 7);
+
+            var select = document.getElementById("demo");
+            for (var i = 1; i <= result; i++) {
+                var el = document.createElement("a");
+                el.setAttribute('onclick', "ShowDateOfWeek(this)");
+                el.textContent = "Tuần " + i;
+                el.value = getDateOfISOWeek(i, currentYear);
+                select.appendChild(el);
+
+            }
+        }
+
+        GetWeek();
+
+        function FormatDate(date) {
+            return date.getDate() + "/" + date.getMonth() + 1 + "/" + date.getFullYear();
+        }
+
+        function ShowDateOfWeek(that) {
+            var showDayOfWeek = document.getElementById("dayOfWeek");
+            var startDay = new Date(that.value);
+            var endDay = new Date();
+            endDay.setDate(startDay.getDate() + 7);
+
+            //showDayOfWeek.innerText = FormatDate(startDay) + " đến " + FormatDate(endDay);
+            showDayOfWeek.innerText = endDay;
+
+        }
+    </script>
+
+</body>
+
+</html>
